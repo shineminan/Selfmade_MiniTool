@@ -1,38 +1,66 @@
 import pytube as p
 import subprocess
+from playsound import playsound
 import os
 
-playlsiturl = "https://youtube.com/playlist?list=PLQqbdnAgoRmZBp0GklnKNIvr2dn1GyYcS"
 saveto = "E:\Video\eCloud"
-
 webm_path = saveto + "\Webms"
 audio_path = saveto + "\Audios"
 output_path = "E:\Video\eCloud\Videos"
 
+def playlistdownload(url):
+    urls = p.Playlist(url)
+    l = len(urls)
+    for x in range(l):
+        a = p.YouTube(urls[x])
+        i = x + 1
 
-urls = p.Playlist(playlsiturl)
-l = len(urls)
+        print("Episode " + str(i) + " webm started downloading!")
+        webm = a.streams.filter(file_extension='webm').order_by('resolution').desc().first().download(webm_path)
+        print("Episode "+str(i)+" webm downloaded!")
+        webm_rename = webm_path + "\\name" + "_(" + str(i) + ").webm"
+        os.rename(webm, webm_rename)
 
-video = urls[0]
-i = 1
+        audio = a.streams.filter(only_audio=True).order_by('abr').desc().first().download(audio_path)
+        print("Episode "+str(i)+" audio downloaded!")
+        audio_rename = audio_path + "\\name" + "_(" + str(i) + ").webm"
+        os.rename(audio, audio_rename)
 
-for x in range(l):
-    a = p.YouTube(urls[x])
-    i = x + 1
+        string = "ffmpeg -i " + audio_rename + " -i " + webm_rename +  " -c copy " + output_path + "\\name" + "_(" + str(i) + ").mkv"
+        subprocess.run(string)
+        print("Episode "+str(i)+"/"+str(l) +" finished!")
+        playsound("./AudioFile/cartoon_bubble_pop.mp3")
+    print("ALL DONE!")
+    playsound("./AudioFile/cartoon_mallets_rise_up_fast_2_steps.mp3")
 
-    print("Episode " + str(i) + " webm started downloading!")
+
+def singlevidoedownload(url):
+    a = p.YouTube(url)
+
+    print("Webm started downloading!")
     webm = a.streams.filter(file_extension='webm').order_by('resolution').desc().first().download(webm_path)
-    print("Episode "+str(i)+" webm downloaded!")
-    webm_rename = webm_path + "\\name" + "_(" + str(i) + ").webm"
+    print("Webm downloaded!")
+    webm_rename = webm_path + "\\YouJustDownloaded.webm"
     os.rename(webm, webm_rename)
 
+
     audio = a.streams.filter(only_audio=True).order_by('abr').desc().first().download(audio_path)
-    print("Episode "+str(i)+" audio downloaded!")
-    audio_rename = audio_path + "\\name" + "_(" + str(i) + ").webm"
+    print("Audio downloaded!")
+    audio_rename = audio_path + "\\YouJustDownloaded.webm"
     os.rename(audio, audio_rename)
 
-    string = "ffmpeg -i " + audio_rename + " -i " + webm_rename +  " -c copy " + output_path + "\\name" + "_(" + str(i) + ").mkv"
+    string = "ffmpeg -i " + audio_rename + " -i " + webm_rename + " -c copy " + output_path + "\\SingleVideoYouJustDownloaded" + ".mkv"
     subprocess.run(string)
-    print("Episode "+str(i)+"/"+str(l) +" finished!")
+    print("DONE!")
+    os.remove(webm_rename)
+    os.remove(audio_rename)
+    playsound("./AudioFile/cartoon_mallets_rise_up_fast_2_steps.mp3")
 
-print("ALL DONE!")
+playlisttext = "playlist"
+givenurl = input("Paste your URL here:")
+if playlisttext in givenurl:
+    print("It is a playlist, will take a long time to download all")
+    playlistdownload(givenurl)
+else:
+    print("Just one video, will be finished soon")
+    singlevidoedownload(givenurl)
