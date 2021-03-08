@@ -30,6 +30,7 @@ def playlistdownload(url):
         subprocess.run(string)
         print("Episode "+str(i)+"/"+str(l) +" finished!")
         playsound("./AudioFile/cartoon_bubble_pop.mp3")
+
     print("ALL DONE!")
     playsound("./AudioFile/cartoon_mallets_rise_up_fast_2_steps.mp3")
 
@@ -51,9 +52,11 @@ def singlevidoedownload(url):
 
     string = "ffmpeg -i " + audio_rename + " -i " + webm_rename + " -c copy " + output_path + "\\SingleVideoYouJustDownloaded" + ".mkv"
     subprocess.run(string)
-    print("DONE!")
+
     os.remove(webm_rename)
     os.remove(audio_rename)
+    thename = audio.replace("E:\\Video\\eCloud\\Audios\\", "").replace(".webm", "")
+    print("DONE! And the original video title is: " + thename)
     playsound("./AudioFile/cartoon_mallets_rise_up_fast_2_steps.mp3")
 
 playlisttext = "playlist"
