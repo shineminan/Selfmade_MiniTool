@@ -33,6 +33,8 @@ def playlistdownload(url):
 
         subprocess.run(string)
         print("Episode "+str(i)+"/"+str(l) +" finished!")
+        os.remove(webm_rename)
+        os.remove(audio_rename)
         playsound("./AudioFile/cartoon_bubble_pop.mp3")
 
     print("ALL DONE!")
