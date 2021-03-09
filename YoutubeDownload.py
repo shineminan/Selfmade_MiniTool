@@ -26,7 +26,11 @@ def playlistdownload(url):
         audio_rename = audio_path + "\\name" + "_(" + str(i) + ").webm"
         os.rename(audio, audio_rename)
 
-        string = "ffmpeg -i " + audio_rename + " -i " + webm_rename +  " -c copy " + output_path + "\\name" + "_(" + str(i) + ").mkv"
+        if i < 10:
+            string = "ffmpeg -i " + audio_rename + " -i " + webm_rename + " -c copy " + output_path + "\\name" + "_(0" + str(i) + ").mkv"
+        else:
+            string = "ffmpeg -i " + audio_rename + " -i " + webm_rename +  " -c copy " + output_path + "\\name" + "_(" + str(i) + ").mkv"
+
         subprocess.run(string)
         print("Episode "+str(i)+"/"+str(l) +" finished!")
         playsound("./AudioFile/cartoon_bubble_pop.mp3")
