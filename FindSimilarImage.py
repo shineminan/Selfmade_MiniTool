@@ -57,7 +57,11 @@ for item in smallhist:
     imS = cv2.resize(possiblesimilarimages, (1000, int(1000/w*h)))
 
     cv2.imshow('image', imS)
+    b = input("Which one you want to delete? 1 or 2? Press Enter to skip")
     cv2.waitKey(0)
+
+
+    print(b)
 
 
 
