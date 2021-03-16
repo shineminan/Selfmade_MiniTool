@@ -31,20 +31,17 @@ for image in imageslist:
 
 i = 0
 # while i == 0:
-b = list(np.sum(abs(histlist - histlist[i]), 1))
-print(b)
+print("Checking " + str(i+1) + "/" + str(totalpicnumber) + " pictures")
+histdifflist = list(np.sum(abs(histlist - histlist[i]), 1))
 
-secsmallind = i
-refvalue = 100
-for n in range(totalpicnumber):
-    if n == i:
-        print("Checking " + str(i+1) + "/" + str(totalpicnumber) + " pictures")
-    else:
-        if b[n] < refvalue:
-            secsmallind = n
-            refvalue = b[n]
-print(secsmallind, refvalue)
+histdifflist[i] = 100
+c = sorted(histdifflist)
+print(c)
+
+d = histdifflist.index(c[0])
+
+possiblesimilarimages = np.hstack((imageslist[0], imageslist[d]))
 
 
-cv2.imshow('image', imageslist[0])
+cv2.imshow('image', possiblesimilarimages)
 cv2.waitKey(0)
