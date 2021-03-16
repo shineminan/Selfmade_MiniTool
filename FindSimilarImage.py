@@ -20,21 +20,42 @@ def load_images_from_folder(folder):
             images_dict[filename] = img
     return images_dict
 
-def combine_image_sbys(img1,img2):
-    h1, w1 = img1.shape[:2]
-    h2, w2 = img2.shape[:2]
-    h = max(h1, h2)
-    w = w1+w2
-    vis = np.zeros((h, w, 3), np.uint8)
-    vis[:h1, :w1,:3] = img1
-    vis[:h2, w1:w1+w2,:3] = img2
-    return h, w, vis
+# def show_image_sbys(img1,img2):
+#     h1, w1 = img1.shape[:2]
+#     h2, w2 = img2.shape[:2]
+#     h = max(h1, h2)
+#     w = w1+w2
+#     vis = np.zeros((h, w, 3), np.uint8)
+#     vis[:h1, :w1,:3] = img1
+#     vis[:h2, w1:w1+w2,:3] = img2
+#     return h, w, vis
+
+def show_image_h(lst):
+    hs = []
+    ws = []
+    for i in range(len(lst)):
+        a, b = lst[i].shape[:2]
+        hs.append(a)
+        ws.append(b)
+    vis = np.zeros((max(hs), sum(ws), 3), np.uint8)
+
+    w = 0
+    for i in range(len(lst)):
+        hi = hs[i]
+        wi = ws[i]
+        # print("imagesgaoe",hi,wi)
+        vis[:hi, w:w+wi, :3] = lst[i]
+        w += wi
+    imS = cv2.resize(vis, (int(480/max(hs)*sum(ws)), 480))
+
+    cv2.imshow('image', imS)
+    cv2.waitKey(0)
+
 
 folder = "C:\\Users\\shine\\Desktop\\Tom_Daley"
 imagesdict = load_images_from_folder(folder)
 imageslist = list(imagesdict.values())
 totalpicnumber = len(imageslist)
-
 histlist = []
 for image in imageslist:
     histlist.append(return_his(image))
@@ -45,23 +66,17 @@ print("Checking " + str(i+1) + "/" + str(totalpicnumber) + " pictures")
 
 histdifflist = list(np.sum(abs(histlist - histlist[i]), 1))
 histdifflist[i] = 100
+
 c = sorted(histdifflist)
-print(c)
-smallhist = [x for x in c if x <= 0.5]
-print(smallhist)
+print("sorted hist", c)
 
-for item in smallhist:
-    print(item)
-    a = histdifflist.index(item)
-    h, w, possiblesimilarimages = combine_image_sbys(imageslist[0], imageslist[a])
-    imS = cv2.resize(possiblesimilarimages, (1000, int(1000/w*h)))
+smallhist = [x for x in histdifflist if x <= 0.5]
 
-    cv2.imshow('image', imS)
-    b = input("Which one you want to delete? 1 or 2? Press Enter to skip")
-    cv2.waitKey(0)
-
-
-    print(b)
-
-
-
+similarimages = []
+if len(smallhist) == 0:
+    print("Didn't find a similar image")
+else:
+    similarimages.append(imageslist[histdifflist.index(100)])
+    for diff in smallhist:
+        similarimages.append(imageslist[histdifflist.index(diff)])
+    show_image_h(similarimages)
