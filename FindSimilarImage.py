@@ -52,7 +52,7 @@ def show_image_h(lst):
     cv2.waitKey(0)
 
 
-folder = "C:\\Users\\shine\\Desktop\\Tom_Daley"
+folder = input("Paste the folder address here: ")
 imagesdict = load_images_from_folder(folder)
 imageslist = list(imagesdict.values())
 totalpicnumber = len(imageslist)
@@ -60,23 +60,22 @@ histlist = []
 for image in imageslist:
     histlist.append(return_his(image))
 
-i = 0
-# while i == 0:
-print("Checking " + str(i+1) + "/" + str(totalpicnumber) + " pictures")
+for i in range(totalpicnumber):
+    print("Checking " + str(i+1) + "/" + str(totalpicnumber) + " pictures")
 
-histdifflist = list(np.sum(abs(histlist - histlist[i]), 1))
-histdifflist[i] = 100
+    histdifflist = list(np.sum(abs(histlist - histlist[i]), 1))
+    histdifflist[i] = 100
 
-c = sorted(histdifflist)
-print("sorted hist", c)
+    c = sorted(histdifflist)
+    # print("sorted hist", c)
 
-smallhist = [x for x in histdifflist if x <= 0.5]
+    smallhist = [x for x in histdifflist if x <= 0.3]
 
-similarimages = []
-if len(smallhist) == 0:
-    print("Didn't find a similar image")
-else:
-    similarimages.append(imageslist[histdifflist.index(100)])
-    for diff in smallhist:
-        similarimages.append(imageslist[histdifflist.index(diff)])
-    show_image_h(similarimages)
+    similarimages = []
+    if len(smallhist) == 0:
+        print("Didn't find a similar image")
+    else:
+        similarimages.append(imageslist[histdifflist.index(100)])
+        for diff in smallhist:
+            similarimages.append(imageslist[histdifflist.index(diff)])
+        show_image_h(similarimages)
