@@ -9,10 +9,10 @@ webm_path = saveto + "\Webms"
 audio_path = saveto + "\Audios"
 output_path = "E:\Video\eCloud\Videos"
 
-def playlistdownload(url):
+def playlistdownload(url,se):
     urls = p.Playlist(url)
     l = len(urls)
-    for x in range(l):
+    for x in range(se-1, l):
         a = p.YouTube(urls[x])
         i = x + 1
 
@@ -66,14 +66,16 @@ def singlevidoedownload(url):
     os.remove(audio_rename)
     thename = audio.replace("E:\\Video\\eCloud\\Audios\\", "").replace(".webm", "")
     print("DONE! " + str(int(min)) + "Min" + str(int(sec)) + "Sec used And the original video title is: " + thename)
-    playsound("./AudioFile/cartoon_mallets_rise_up_fast_2_steps.mp3")
+    playsound("./AudioFile/cartoon_mallets_rise_up_fast_2_stephttps://youtu.be/qr3dbMSsyCMs.mp3")
 
 playlisttext = "playlist"
 givenurl = input("Paste your URL here:")
 if playlisttext in givenurl:
+    se = input("Which episode you want to start from? ")
+    se = min(se, 1)
     a = time.perf_counter()
     print("It is a playlist, will take a long time to download all")
-    playlistdownload(givenurl)
+    playlistdownload(givenurl, int(se))
     b = time.perf_counter()
     min, sec = divmod(b - a, 60)
     print("ALL DONE! Totally "+ str(int(min)) + "Min" + str(int(sec)) + "Sec used")
