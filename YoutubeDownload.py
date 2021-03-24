@@ -48,10 +48,7 @@ def playlistdownload(urls,episodelist):
     for i in episodelist: # i is the episode number, i-1 is the episode index
         singlevidoedownload(urls[i-1], i)
         singledlname = output_path + "\\SingleVideoYouJustDownloaded.mkv"
-        if i < 10:
-            playlistepisodename = output_path + "\\name" + "_(0" + str(i) + ").mkv"
-        else:
-            playlistepisodename = output_path + "\\name" + "_(" + str(i) + ").mkv"
+        playlistepisodename = output_path + "\\name" + "_(" + '{0:03}'.format(i) + ").mkv"
         os.rename(singledlname, playlistepisodename)
     b = time.perf_counter()
     min, sec = divmod(b - a, 60)
@@ -66,15 +63,11 @@ if playlisttext in givenurl:
 
     data = input("Which episodes you want to download? Input ike: (0-1000), (2-8), (0-8), (2-1000), (2,4,6,8) ->: ")
     if "-" in data:
-        mid = data.index("-")
-        startepisode = max(int(data[:mid]), 1)
-        endepisode = min(int(data[mid+1:]), l)
-        episodelist = [x for x in range(startepisode,endepisode+1)]
+        a, b = (int(s) for s in data.split("-") if s.isdigit())
+        episodelist = [x for x in range(max(a, 1), min(b, l)+1)]
     elif "," in data:
         inputlist = [int(s) for s in data.split(",") if s.isdigit()]
         episodelist = [x for x in inputlist if 0 < x <= l]
-        if len(episodelist) < inputlist:
-            print("Hey, some episode(s) are out of range, but I wont tell which, hehe ")
     else:
         print("Duck you, totally wrong input!!!")
     print("It is a playlist, will take a long time to download all these episodes: ", episodelist)
