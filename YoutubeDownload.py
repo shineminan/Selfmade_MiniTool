@@ -48,7 +48,7 @@ def playlistdownload(urls,episodelist):
     for i in episodelist: # i is the episode number, i-1 is the episode index
         singlevidoedownload(urls[i-1], i)
         singledlname = output_path + "\\SingleVideoYouJustDownloaded.mkv"
-        playlistepisodename = output_path + "\\name" + "_(" + '{0:03}'.format(i) + ").mkv"
+        playlistepisodename = output_path + "\\" + str(name) + "_(" + '{0:03}'.format(i) + ").mkv"
         os.rename(singledlname, playlistepisodename)
     b = time.perf_counter()
     min, sec = divmod(b - a, 60)
@@ -62,6 +62,7 @@ if playlisttext in givenurl:
     l = len(urls)
 
     data = input("Which episodes you want to download? Input ike: (0-1000), (2-8), (0-8), (2-1000), (2,4,6,8) ->: ")
+    name = input("What is the name of the episode? : ")
     if "-" in data:
         a, b = (int(s) for s in data.split("-") if s.isdigit())
         episodelist = [x for x in range(max(a, 1), min(b, l)+1)]
