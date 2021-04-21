@@ -18,7 +18,7 @@ def singlevidoedownload(url,i=0):
     else:  #single download in a playlist
         print("Episode " + str(i) + "/" + str(l) + " webm started downloading!")
 
-    webm = a.streams.filter(file_extension='webm').order_by('resolution').desc().first().download(webm_path)
+    webm = a.streams.filter(file_extension='webm').filter(resolution="1080p").order_by('resolution').desc().first().download(webm_path)
     webm_rename = webm_path + "\\YouJustDownloaded.webm"
     os.rename(webm, webm_rename)
     print("Webm downloaded! And Audio start downloading!")
