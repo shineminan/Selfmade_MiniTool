@@ -1,7 +1,9 @@
 import numpy as np
 import cv2
 import os
+import ctypes
 import shutil
+
 
 def return_his(pic):
     a, _ = np.histogram(pic, 64, [0,256])
@@ -15,7 +17,7 @@ def diff_lists(lst1,lst2):
 def load_images_from_folder(folder):
     images_dict = {}
     for filename in os.listdir(folder):
-        img = cv2.imread(os.path.join(folder,filename))
+        img = cv2.imread(os.path.join(folder, filename))
         if img is not None:
             images_dict[filename] = img
     return images_dict
@@ -30,7 +32,7 @@ def load_images_from_folder(folder):
 #     vis[:h2, w1:w1+w2,:3] = img2
 #     return h, w, vis
 
-def show_image_h(lst):
+def show_image_h(lst): #show images horizontally
     hs = []
     ws = []
     for i in range(len(lst)):
@@ -46,10 +48,32 @@ def show_image_h(lst):
         # print("imagesgaoe",hi,wi)
         vis[:hi, w:w+wi, :3] = lst[i]
         w += wi
-    imS = cv2.resize(vis, (int(480/max(hs)*sum(ws)), 480))
+
+    displayw = screenw
+    displayh = int(screenw/sum(ws)*max(hs))
+    if displayh > screenh:
+        displayh = screenh
+        displayw = int(screenh/max(hs)*sum(ws))
+
+    imS = cv2.resize(vis, (displayw, displayh))
+
 
     cv2.imshow('image', imS)
     cv2.waitKey(0)
+
+
+
+
+
+
+
+
+user32 = ctypes.windll.user32
+screenw, screenh = user32.GetSystemMetrics(0), user32.GetSystemMetrics(1)
+
+
+
+
 
 
 folder = input("Paste the folder address here: ")
