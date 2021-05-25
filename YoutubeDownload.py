@@ -18,7 +18,7 @@ def singlevidoedownload(url,i=0):
     else:  #single download in a playlist
         print("Episode " + str(i) + "/" + str(l) + " webm started downloading!")
 
-    webm = a.streams.filter(file_extension='webm').filter(resolution="1080p").order_by('resolution').desc().first().download(webm_path) #.filter(resolution="1080p")
+    webm = a.streams.filter(file_extension='webm').order_by('resolution').desc().first().download(webm_path) #.filter(resolution="1080p")
     webm_rename = webm_path + "\\YouJustDownloaded.webm"
     os.rename(webm, webm_rename)
     print("Webm downloaded! And Audio start downloading!")
@@ -78,3 +78,11 @@ if playlisttext in givenurl:
 else:
     print("Just one video, will be finished soon")
     singlevidoedownload(givenurl)
+
+"""
+https://youtube.com/playlist?list=PLnERAiDZsd7DrzHyibBELBz3_rGxnthHq 八零九零
+https://youtube.com/playlist?list=PLWXirse__NwXKoAIo_cpgxKX_hgwO7wcO 御赐小仵作
+https://youtube.com/playlist?list=PLb8w8KsDSK1w9F1dG1TtFZ0qbwglkz5Pq 乌鸦小姐与蜥蜴先生
+https://youtube.com/playlist?list=PLooD8l3FSd6nkll8fJBCteN18oohvm0Jy 长歌行
+https://youtube.com/playlist?list=PLtt_YYUGi1gW97sUspa6G0AmIwoTG2_TF 在远方
+"""
