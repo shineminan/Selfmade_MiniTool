@@ -80,9 +80,6 @@ else:
     singlevidoedownload(givenurl)
 
 """
-https://youtube.com/playlist?list=PLnERAiDZsd7DrzHyibBELBz3_rGxnthHq 八零九零
 https://youtube.com/playlist?list=PLWXirse__NwXKoAIo_cpgxKX_hgwO7wcO 御赐小仵作
-https://youtube.com/playlist?list=PLb8w8KsDSK1w9F1dG1TtFZ0qbwglkz5Pq 乌鸦小姐与蜥蜴先生
-https://youtube.com/playlist?list=PLooD8l3FSd6nkll8fJBCteN18oohvm0Jy 长歌行
-https://youtube.com/playlist?list=PLtt_YYUGi1gW97sUspa6G0AmIwoTG2_TF 在远方
+https://youtube.com/playlist?list=PLGMn_M1Fmi2gUziGY-GoL13ewQzDJnyDg 乌鸦小姐与蜥蜴先生
 """
