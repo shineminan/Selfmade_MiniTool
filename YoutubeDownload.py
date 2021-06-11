@@ -8,6 +8,7 @@ saveto = "E:\Video\eCloud"
 webm_path = saveto + "\Webms"
 audio_path = saveto + "\Audios"
 output_path = "E:\Video\eCloud\Videos"
+playlisttext = "playlist"
 
 def singlevidoedownload(url,i=0):
     a = p.YouTube(url)
@@ -55,14 +56,13 @@ def playlistdownload(urls,episodelist):
     print("ALL DONE! Totally " + str(int(min)) + " Min " + str(int(sec)) + " Sec used")
     playsound("./AudioFile/cartoon_mallets_rise_up_fast_2_steps.mp3")
 
-playlisttext = "playlist"
-givenurl = input("Paste your URL here: ")
+infoinput= input("Paste your URL and the name of episodes here separated by a coma: ")
+givenurl, name = (infoinput.split(","))
 if playlisttext in givenurl:
     urls = p.Playlist(givenurl)
     l = len(urls)
-
     data = input("Which episodes you want to download? Input ike: (0-1000), (2-8), (0-8), (2-1000), (2,4,6,8) ->: ")
-    name = input("What is the name of the episode? : ")
+    # name = input("What is the name of the episode? : ")
     if "-" in data:
         a, b = (int(s) for s in data.split("-") if s.isdigit())
         episodelist = [x for x in range(max(a, 1), min(b, l)+1)]
@@ -72,14 +72,15 @@ if playlisttext in givenurl:
     else:
         print("Duck you, totally wrong input!!!")
     print("It is a playlist, will take a long time to download all these episodes: ", episodelist)
-    print("." * 120)
+    print("." * 200)
     playlistdownload(urls, episodelist)
-
 else:
     print("Just one video, will be finished soon")
     singlevidoedownload(givenurl)
 
 """
-https://youtube.com/playlist?list=PLWXirse__NwXKoAIo_cpgxKX_hgwO7wcO 御赐小仵作
-https://youtube.com/playlist?list=PLGMn_M1Fmi2gUziGY-GoL13ewQzDJnyDg 乌鸦小姐与蜥蜴先生
+https://youtube.com/playlist?list=PLWXirse__NwXKoAIo_cpgxKX_hgwO7wcO,御赐小仵作
+https://youtube.com/playlist?list=PLGMn_M1Fmi2gUziGY-GoL13ewQzDJnyDg,乌鸦小姐与蜥蜴先生
+https://youtube.com/playlist?list=PLMX26aiIvX5qfLxgmS0rCAP4pvXDciWEM,三生三世枕上书
+https://youtube.com/playlist?list=PLATwx1z00HscWzRyxTkq5F4bEaHRJAwiN,人间烟火花小厨
 """
