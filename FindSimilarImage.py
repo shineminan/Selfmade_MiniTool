@@ -4,7 +4,7 @@ import os
 import ctypes
 user32 = ctypes.windll.user32
 screenw, screenh = user32.GetSystemMetrics(0), user32.GetSystemMetrics(1)
-sensitivity = 0.3
+sensitivity = 0.2
 
 
 def return_his(pic):
@@ -93,4 +93,4 @@ for i in range(totalpicnumber):
 
 for name in tuple(deletenamelst):
     os.remove(folder + "\\" + name)
-print("Totally " + str(len(deletenamelst)) + " pictures deleted")
+print("Totally " + str(len(deletenamelst)) + " picture(s) deleted")
