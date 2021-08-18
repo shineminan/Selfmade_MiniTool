@@ -3,6 +3,10 @@ import subprocess
 from playsound import playsound
 import os
 import time
+""""
+pytube upgrading line:
+pip install pytube -U
+"""
 
 saveto = "E:\Video\eCloud"
 webm_path = saveto + "\Webms"
@@ -79,8 +83,7 @@ else:
     singlevidoedownload(givenurl)
 
 """
-https://youtube.com/playlist?list=PLWXirse__NwXKoAIo_cpgxKX_hgwO7wcO,御赐小仵作
-https://youtube.com/playlist?list=PLGMn_M1Fmi2gUziGY-GoL13ewQzDJnyDg,乌鸦小姐与蜥蜴先生
-https://youtube.com/playlist?list=PLMX26aiIvX5qfLxgmS0rCAP4pvXDciWEM,三生三世枕上书
-https://youtube.com/playlist?list=PLATwx1z00HscWzRyxTkq5F4bEaHRJAwiN,人间烟火花小厨
+https://youtube.com/playlist?list=PLb8w8KsDSK1xjiPSBpAevyfSxgiotHBaE,千古玦尘
+https://youtube.com/playlist?list=PLooD8l3FSd6nqwNez3hGexl2omI0e1AUQ,骊歌行
+https://youtube.com/playlist?list=PLooD8l3FSd6kl6nkhDO8xXo3TiBPJHVQm,雁归西窗月
 """
