@@ -83,7 +83,7 @@ else:
     singlevidoedownload(givenurl)
 
 """
-https://youtube.com/playlist?list=PLb8w8KsDSK1xjiPSBpAevyfSxgiotHBaE,千古玦尘
-https://youtube.com/playlist?list=PLooD8l3FSd6nqwNez3hGexl2omI0e1AUQ,骊歌行
-https://youtube.com/playlist?list=PLooD8l3FSd6kl6nkhDO8xXo3TiBPJHVQm,雁归西窗月
+https://youtube.com/playlist?list=PLGMn_M1Fmi2g2XPvx0SbfYymVzO6Z-dOh,你是我的荣耀
+https://youtube.com/playlist?list=PLooD8l3FSd6k3wj5BVSqOhDP7mpHhnn8m,玉楼春
+https://youtube.com/playlist?list=PLQqbdnAgoRma3HwiHsunjZXP0v-ChTiHV,乔家的儿女
 """

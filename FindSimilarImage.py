@@ -51,46 +51,63 @@ def show_image_h(lst): #show images horizontally
     a = cv2.waitKey(0)
     return a
 
+def single_folder_compare(folder):
+    print("." * 200)
+    print(folder + " is being check")
+    imagesdict = load_images_from_folder(folder)
+    filenamelist = list(imagesdict.keys())
+    imageslist = list(imagesdict.values())
+    totalpicnumber = len(imageslist)
+    deletenamelst = []
 
+    histlist = []
+    for image in imageslist:
+        histlist.append(return_his(image))
 
+    for i in range(totalpicnumber):
+        print("Checking " + "picture: " + filenamelist[i] + " -> (" + str(i+1) + "/" + str(totalpicnumber) + ")")
 
-folder = input("Paste the folder address here: ")
-imagesdict = load_images_from_folder(folder)
-filenamelist = list(imagesdict.keys())
-imageslist = list(imagesdict.values())
-totalpicnumber = len(imageslist)
-deletenamelst = []
+        histdifflist = list(np.sum(abs(histlist - histlist[i]), 1))
+        histdifflist[i] = 100
+        # c = sorted(histdifflist)
+        smallhist = [x for x in histdifflist[i:] if x <= sensitivity]
 
-histlist = []
-for image in imageslist:
-    histlist.append(return_his(image))
-
-for i in range(totalpicnumber):
-    print("Checking " + "picture: " + filenamelist[i] + " -> (" + str(i+1) + "/" + str(totalpicnumber) + ")")
-
-    histdifflist = list(np.sum(abs(histlist - histlist[i]), 1))
-    histdifflist[i] = 100
-    # c = sorted(histdifflist)
-    smallhist = [x for x in histdifflist[i:] if x <= sensitivity]
-
-    similarimages = []
-    similarimages_filename = []
-    if len(smallhist) == 0:
-        print("Didn't find a similar image")
-    else:
-        a = histdifflist.index(100)
-        similarimages.append(imageslist[a])
-        similarimages_filename.append(filenamelist[a])
-        for diff in smallhist:
-            a = histdifflist.index(diff)
+        similarimages = []
+        similarimages_filename = []
+        if len(smallhist) == 0:
+            print("Didn't find a similar image")
+        else:
+            a = histdifflist.index(100)
             similarimages.append(imageslist[a])
             similarimages_filename.append(filenamelist[a])
-        print(similarimages_filename)
-        index = int(show_image_h(similarimages))
-        if index > 48:
-            number = index - 48
-            deletenamelst.append(similarimages_filename[number-1])
+            for diff in smallhist:
+                a = histdifflist.index(diff)
+                similarimages.append(imageslist[a])
+                similarimages_filename.append(filenamelist[a])
+            print(similarimages_filename)
+            index = int(show_image_h(similarimages))
+            if index > 48:
+                number = index - 48
+                deletenamelst.append(similarimages_filename[number-1])
+    for name in tuple(deletenamelst):
+        os.remove(folder + "\\" + name)
+    print("Totally " + str(len(deletenamelst)) + " picture(s) deleted")
 
-for name in tuple(deletenamelst):
-    os.remove(folder + "\\" + name)
-print("Totally " + str(len(deletenamelst)) + " picture(s) deleted")
+def multiple_folder_compare(folder):
+    subfolders = os.listdir(folder)
+    paths_list = []
+    for name in subfolders:
+        subfolderpath = folder + '\\' + name
+        paths_list.append(subfolderpath)
+    for path in paths_list:
+        single_folder_compare(path)
+
+
+infoinput = input("Paste the folder address here seperated by a coma with indication of single folder comparision(1) or multiple comparision(2): ")
+folder, index = (infoinput.split(","))
+if int(index) == 1:
+    single_folder_compare(folder)
+elif int(index) == 2:
+    multiple_folder_compare(folder)
+else:
+    print("Duck you, totally wrong input!!!")
