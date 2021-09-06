@@ -67,6 +67,8 @@ if playlisttext in givenurl:
     l = len(videourls)
     if int(mode) == 0:
         urls = list(videourls)[::-1]
+    else:
+        urls = list(videourls)
     data = input("Which episodes you want to download? Input ike: (0-1000), (2-8), (0-8), (2-1000), (2,4,6,8) ->: ")
     # name = input("What is the name of the episode? : ")
     if "-" in data:
