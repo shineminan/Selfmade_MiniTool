@@ -60,11 +60,13 @@ def playlistdownload(urls,episodelist):
     print("ALL DONE! Totally " + str(int(min)) + " Min " + str(int(sec)) + " Sec used")
     playsound("./AudioFile/cartoon_mallets_rise_up_fast_2_steps.mp3")
 
-infoinput= input("Paste your URL and the name of episodes here separated by a coma: ")
-givenurl, name = (infoinput.split(","))
+infoinput= input("Paste your URL, the name of episodes and download mode here separated by a coma: ") #0 is reverse, 1 is normal
+givenurl, name, mode = (infoinput.split(","))
 if playlisttext in givenurl:
-    urls = p.Playlist(givenurl)
-    l = len(urls)
+    videourls = p.Playlist(givenurl)
+    l = len(videourls)
+    if int(mode) == 0:
+        urls = list(videourls)[::-1]
     data = input("Which episodes you want to download? Input ike: (0-1000), (2-8), (0-8), (2-1000), (2,4,6,8) ->: ")
     # name = input("What is the name of the episode? : ")
     if "-" in data:
@@ -83,7 +85,10 @@ else:
     singlevidoedownload(givenurl)
 
 """
-https://youtube.com/playlist?list=PLGMn_M1Fmi2g2XPvx0SbfYymVzO6Z-dOh,你是我的荣耀
-https://youtube.com/playlist?list=PLooD8l3FSd6k3wj5BVSqOhDP7mpHhnn8m,玉楼春
-https://youtube.com/playlist?list=PLQqbdnAgoRma3HwiHsunjZXP0v-ChTiHV,乔家的儿女
+https://youtube.com/playlist?list=PLGMn_M1Fmi2g2XPvx0SbfYymVzO6Z-dOh,你是我的荣耀,1
+https://youtube.com/playlist?list=PLooD8l3FSd6k3wj5BVSqOhDP7mpHhnn8m,玉楼春,1
+https://youtube.com/playlist?list=PLQqbdnAgoRma3HwiHsunjZXP0v-ChTiHV,乔家的儿女,1
+https://youtube.com/playlist?list=PLATwx1z00Hsd_6Awul8IzE7QOPuqpKfDy,玫瑰行者,1
+https://youtube.com/playlist?list=PL9yRf-Ghij3ZjLtoV6iCqP9klbD9BGgly,扫黑风暴,0
+https://youtube.com/playlist?list=PLhnjbkseqMET-exRbvVoA29AMTIHeELwj,双镜,0
 """
