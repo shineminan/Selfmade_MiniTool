@@ -14,7 +14,7 @@ audio_path = saveto + "\Audios"
 output_path = "E:\Video\eCloud\Videos"
 playlisttext = "playlist"
 
-def singlevidoedownload(url,i=0):
+def singlevidoedownload(url, videoname, mode, i=0):
     a = p.YouTube(url)
     t1 = time.perf_counter()
 
@@ -43,16 +43,16 @@ def singlevidoedownload(url,i=0):
         print("Episode " + str(i) + "/" + str(l) + " finished! " + str(int(min)) + " Min " + str(int(sec)) + " Sec used")
         playsound("./AudioFile/cartoon_bubble_pop.mp3")
 
-    string = "ffmpeg -i " + audio_rename + " -i " + webm_rename + " -c copy " + output_path + "\\SingleVideoYouJustDownloaded.mkv"
+    string = "ffmpeg -i " + audio_rename + " -i " + webm_rename + " -c copy " + output_path + "\\" + str(videoname) + "_(" + '{0:03}'.format(int(mode))  + ").mkv"
     subprocess.run(string)
     os.remove(webm_rename)
     os.remove(audio_rename)
 
-def playlistdownload(urls,episodelist):
+def playlistdownload(urls,episodelist, videoname, mode):
     a = time.perf_counter()
     for i in episodelist: # i is the episode number, i-1 is the episode index
-        singlevidoedownload(urls[i-1], i)
-        singledlname = output_path + "\\SingleVideoYouJustDownloaded.mkv"
+        singlevidoedownload(urls[i-1], videoname, mode, i)
+        singledlname = output_path + "\\" + str(videoname) + "_(" + '{0:03}'.format(int(mode))  + ").mkv"
         playlistepisodename = output_path + "\\" + str(name) + "_(" + '{0:03}'.format(i) + ").mkv"
         os.rename(singledlname, playlistepisodename)
     b = time.perf_counter()
@@ -81,10 +81,10 @@ if playlisttext in givenurl:
         print("Duck you, totally wrong input!!!")
     print("It is a playlist, will take a long time to download all these episodes: ", episodelist)
     print("." * 200)
-    playlistdownload(urls, episodelist)
+    playlistdownload(urls, episodelist, name, mode)
 else:
     print("Just one video, will be finished soon")
-    singlevidoedownload(givenurl)
+    singlevidoedownload(givenurl, name, mode)
 
 """
 https://youtube.com/playlist?list=PLGMn_M1Fmi2g2XPvx0SbfYymVzO6Z-dOh,你是我的荣耀,1
