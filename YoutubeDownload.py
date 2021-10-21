@@ -14,7 +14,7 @@ audio_path = saveto + "\Audios"
 output_path = "E:\Video\eCloud\Videos"
 playlisttext = "playlist"
 
-def singlevidoedownload(url, videoname, mode, i=0):
+def singlevidoedownload(url, videoname, i=0):
     a = p.YouTube(url)
     t1 = time.perf_counter()
 
@@ -43,16 +43,16 @@ def singlevidoedownload(url, videoname, mode, i=0):
         print("Episode " + str(i) + "/" + str(l) + " finished! " + str(int(min)) + " Min " + str(int(sec)) + " Sec used")
         playsound("./AudioFile/cartoon_bubble_pop.mp3")
 
-    string = "ffmpeg -i " + audio_rename + " -i " + webm_rename + " -c copy " + output_path + "\\" + str(videoname) + "_(" + '{0:03}'.format(int(mode))  + ").mkv"
+    string = "ffmpeg -i " + audio_rename + " -i " + webm_rename + " -c copy " + output_path + "\\" + str(videoname) + "_(" + '{0:03}'.format(int(i))  + ").mkv"
     subprocess.run(string)
     os.remove(webm_rename)
     os.remove(audio_rename)
 
-def playlistdownload(urls,episodelist, videoname, mode):
+def playlistdownload(urls,episodelist, videoname):
     a = time.perf_counter()
     for i in episodelist: # i is the episode number, i-1 is the episode index
-        singlevidoedownload(urls[i-1], videoname, mode, i)
-        singledlname = output_path + "\\" + str(videoname) + "_(" + '{0:03}'.format(int(mode))  + ").mkv"
+        singlevidoedownload(urls[i-1], videoname, i)
+        singledlname = output_path + "\\" + str(videoname) + "_(" + '{0:03}'.format(int(i))  + ").mkv"
         playlistepisodename = output_path + "\\" + str(name) + "_(" + '{0:03}'.format(i) + ").mkv"
         os.rename(singledlname, playlistepisodename)
     b = time.perf_counter()
@@ -81,16 +81,14 @@ if playlisttext in givenurl:
         print("Duck you, totally wrong input!!!")
     print("It is a playlist, will take a long time to download all these episodes: ", episodelist)
     print("." * 200)
-    playlistdownload(urls, episodelist, name, mode)
+    playlistdownload(urls, episodelist, name)
 else:
     print("Just one video, will be finished soon")
-    singlevidoedownload(givenurl, name, mode)
+    singlevidoedownload(givenurl, name)
 
 """
-https://youtube.com/playlist?list=PLGMn_M1Fmi2g2XPvx0SbfYymVzO6Z-dOh,你是我的荣耀,1
-https://youtube.com/playlist?list=PLooD8l3FSd6k3wj5BVSqOhDP7mpHhnn8m,玉楼春,1
-https://youtube.com/playlist?list=PLQqbdnAgoRma3HwiHsunjZXP0v-ChTiHV,乔家的儿女,1
-https://youtube.com/playlist?list=PLATwx1z00Hsd_6Awul8IzE7QOPuqpKfDy,玫瑰行者,1
-https://youtube.com/playlist?list=PL9yRf-Ghij3ZjLtoV6iCqP9klbD9BGgly,扫黑风暴,0
-https://youtube.com/playlist?list=PLhnjbkseqMET-exRbvVoA29AMTIHeELwj,双镜,0
+https://www.youtube.com/playlist?list=PLkvG4EWPDB0nK-ntt_l7nYd_gqvBclVfo,光芒,1
+https://www.youtube.com/playlist?list=PLAfof34K3azWomVdizmXLHRHV-uPZH_Ei,我的巴比伦恋人,1
+https://www.youtube.com/playlist?list=PLooD8l3FSd6kV4vFb-KL4Ed3-3pZtl23r,启航当风起时,1
+https://www.youtube.com/playlist?list=PLTB73Ibi_X3HNxFX05L0kVbSBPN-QOOqF,双探,1
 """
