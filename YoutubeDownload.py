@@ -88,7 +88,6 @@ else:
 
 """
 https://www.youtube.com/playlist?list=PLkvG4EWPDB0nK-ntt_l7nYd_gqvBclVfo,光芒,1
-https://www.youtube.com/playlist?list=PLAfof34K3azWomVdizmXLHRHV-uPZH_Ei,我的巴比伦恋人,1
-https://www.youtube.com/playlist?list=PLooD8l3FSd6kV4vFb-KL4Ed3-3pZtl23r,启航当风起时,1
+https://youtube.com/playlist?list=PLIPiKkS-FpK8nqSOx18yfv2uEmuy0khct,我的巴比伦恋人,1
 https://www.youtube.com/playlist?list=PLTB73Ibi_X3HNxFX05L0kVbSBPN-QOOqF,双探,1
 """
