@@ -43,7 +43,7 @@ def singlevidoedownload(url, videoname, i=0):
         print("Episode " + str(i) + "/" + str(l) + " finished! " + str(int(min)) + " Min " + str(int(sec)) + " Sec used")
         playsound("./AudioFile/cartoon_bubble_pop.mp3")
 
-    string = "ffmpeg -i " + audio_rename + " -i " + webm_rename + " -c copy " + output_path + "\\" + str(videoname) + "_(" + '{0:03}'.format(int(i))  + ").mkv"
+    string = "ffmpeg -i " + audio_rename + " -i " + webm_rename + " -c copy " + output_path + "\\" + str(videoname) + "_(" + '{0:03}'.format(int(i)) + ").mkv"
     subprocess.run(string)
     os.remove(webm_rename)
     os.remove(audio_rename)
@@ -90,4 +90,5 @@ else:
 https://www.youtube.com/playlist?list=PLkvG4EWPDB0nK-ntt_l7nYd_gqvBclVfo,光芒,1
 https://youtube.com/playlist?list=PLIPiKkS-FpK8nqSOx18yfv2uEmuy0khct,我的巴比伦恋人,1
 https://www.youtube.com/playlist?list=PLTB73Ibi_X3HNxFX05L0kVbSBPN-QOOqF,双探,1
+https://youtube.com/playlist?list=PLMX26aiIvX5rcYjAW7p_bguZDB-imN_4u,梦华录,1
 """
